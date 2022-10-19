@@ -1,7 +1,8 @@
 # aws-hands-on
 
 ## Description 
-The purpose of this repo is to mantain several scripts in order to prepare for any AWS certification exam.
+
+The purpose of this repo is to mantain several scripts that helps in the preparation to any AWS certification exam.
 
 ## Cloudformation
 
