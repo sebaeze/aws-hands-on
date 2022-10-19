@@ -1,0 +1,39 @@
+# Parameters
+Parameters:
+  ImageId:
+    Description: EC2 Image ID.
+    Default: ami-026b57f3c383c2eec
+    Type: String
+    ConstraintDescription: must specify an image id.
+
+Resources:
+# Create EC2 Instance
+  EC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: !Ref ImageId
+      InstanceType: t2.micro
+      KeyName: dva
+      UserData:
+        Fn::Base64: 
+          !Sub |
+              #! /bin/bash
+              #
+              sudo yum install -y httpd
+              sleep 4s
+              #
+              sudo systemctl enable --now httpd
+              sleep 2s
+              sudo systemctl status httpd
+              #
+              echo "$(whoami)-$(date +%FT%H:%M:%S)...running_at_hostname: $HOSTNAME." > /var/www/html/index.html
+              #
+      BlockDeviceMappings:
+        - DeviceName: /dev/xvda
+          Ebs:
+            VolumeType: "gp2"
+            DeleteOnTermination: "true"
+            VolumeSize: "8"
+      Tags:
+        - Key: Name
+          Value: !Sub "${AWS::StackName}-EC2"
