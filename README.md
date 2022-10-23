@@ -19,3 +19,37 @@ aws cloudformation deploy \
 aws sqs list-queues
 aws sqs get-queue-attributes --queue-url=https://sqs.${AWS_REGION_ID}.amazonaws.com/${ACCOUNT_ID}/${QUEUE_NAME}  --attribute-names All
 ```
+
+### Access Policy that allows s3 event notifications to SQS
+
+```json
+{
+  "Version": "2012-10-17",
+  "Id": "example-ID",
+  "Statement": [
+    {
+      "Sid": "example-statement-ID",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "*"
+      },
+      "Action": "SQS:SendMessage",
+      "Resource": "arn:aws:sqs:${AWS_REGION_ID}:${ACCOUNT_ID}:${QUEUE_NAME}",
+      "Condition": {
+        "StringEquals": {
+          "aws:SourceAccount": "${ACCOUNT_ID}"
+        },
+        "ArnLike": {
+          "aws:SourceArn": "arn:aws:s3:::${BUCKET_NAME}"
+        }
+      }
+    }
+  ]
+}
+```
+
+## S3
+
+```
+aws s3 ls
+```
