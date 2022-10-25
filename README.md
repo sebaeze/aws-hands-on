@@ -73,5 +73,5 @@ aws lambda list-functions
 ```bash
 aws lambda list-functions
 aws lambda get-function --function-name=my-function
-aws lambda invoke --function-name=my-function --cli-binary-format raw-in-base64-out --payload='{"key1":"ssss","key2":"dos","key3":"tresss"}' temp.json
+aws lambda invoke --function-name=my-function --cli-binary-format raw-in-base64-out --payload='{"key1":"ssss","key2":"dos","key3":"tresss"}' temp.json &&  cat temp.json
 ```
