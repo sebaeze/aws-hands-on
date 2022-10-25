@@ -56,7 +56,20 @@ aws s3 ls
 
 ## lambda
 
-### Cli
+### Create function
+```bash
+pushd lambda && zip my-function.zip index.js && popd
+aws iam delete-role --role-name my-function-role 
+aws iam create-role --role-name my-function-role --assume-role-policy-document file://lambda/my-function-role-policy.json > lambda/temp-new-role.json
+aws iam attach-role-policy --role-name my-function-role --policy-arn arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+
+aws lambda create-function --function-name my-function --zip-file fileb://lambda/my-function.zip --handler index.handler --runtime nodejs14.x --role $(cat lambda/temp-new-role.json | egrep 'Arn' | cut -c17-63) --region=us-east-1
+
+aws lambda list-functions
+
+```
+
+### Test function
 ```bash
 aws lambda list-functions
 aws lambda get-function --function-name=my-function
