@@ -1,0 +1,9 @@
+# dotenv environment variables file
+.env
+.env.local
+# Logs
+logs
+*.log
+# Test
+temp.json
+

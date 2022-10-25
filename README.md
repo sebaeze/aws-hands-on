@@ -53,3 +53,12 @@ aws sqs get-queue-attributes --queue-url=https://sqs.${AWS_REGION_ID}.amazonaws.
 ```
 aws s3 ls
 ```
+
+## lambda
+
+### Cli
+```bash
+aws lambda list-functions
+aws lambda get-function --function-name=my-function
+aws lambda invoke --function-name=my-function --cli-binary-format raw-in-base64-out --payload='{"key1":"ssss","key2":"dos","key3":"tresss"}' temp.json
+```
