@@ -82,3 +82,14 @@ aws lambda list-functions
 aws lambda get-function --function-name=my-function
 aws lambda invoke --function-name=my-function --cli-binary-format raw-in-base64-out --payload='{"key1":"ssss","key2":"dos","key3":"tresss"}' temp.json &&  cat temp.json
 ```
+
+## Step Functions
+
+```bash
+aws iam delete-role --role-name stepfunctions-role-hello-world 
+aws iam create-role --role-name stepfunctions-role-hello-world --assume-role-policy-document file://stepfunctions/01_role_hello_world.json > stepfunctions/temp-new-role.json
+
+
+aws stepfunctions create-state-machine --name step-function-hello-world --role $(cat stepfunctions/temp-new-role.json | egrep 'Arn' | cut -c17-63)  --definition file://./stepFunctions/01_helloWorld.json
+
+```

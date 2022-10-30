@@ -9,4 +9,5 @@ temp.json
 my-function.zip
 lambda/my-function.zip
 lambda/temp-new-role.json
+stepfunctions/temp-new-role.json
 
